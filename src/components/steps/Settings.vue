@@ -7,20 +7,8 @@
     <form @submit.prevent="sendDone">
       <label class="label" for="friendly_name">Friendly name</label>
       <p class="control">
-        <input v-model.trim="name" class="input" type="text" placeholder="My awesome device name" id="friendly_name" required />
+        <input v-model.trim="name" class="input" type="text" placeholder="My device name" id="friendly_name" required />
         <span class="help">Required.</span>
-      </p>
-
-      <label class="label" for="device_id">Device ID</label>
-      <p class="control">
-        <input v-model.trim="deviceId" class="input" type="text" pattern="^(([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9]))$" placeholder="the-device-id" id="device_id" />
-        <span class="help">Optional. The default value is the hardware device ID. MAY be composed of lowercase letters from <span class="tag">a</span> to <span class="tag">z</span>, numbers from <span class="tag">0</span> to <span class="tag">9</span>, and it MAY contain <span class="tag">-</span>, but MUST NOT start or end with a <span class="tag">-</span></span>
-      </p>
-
-      <p class="control">
-        <label class="checkbox" for="ota">
-          <input v-model="ota" type="checkbox" id="ota" /> Enable OTA
-        </label>
       </p>
 
       <hr/>
@@ -69,8 +57,6 @@ export default {
     })
     return {
       name: null,
-      deviceId: null,
-      ota: false,
       customSettings
     }
   },
@@ -90,8 +76,6 @@ export default {
     sendDone: function () {
       const settings = { settings: {} }
       settings.name = this.name
-      settings.ota = this.ota
-      if (this.deviceId) settings['device_id'] = this.deviceId
 
       for (let providedSettingName of Object.keys(this.customSettings)) {
         let originalSettingObject

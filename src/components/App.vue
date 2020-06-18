@@ -1,15 +1,14 @@
 <template>
   <span>
-    <h1 class="title">Homie for ESP8266</h1>
+    <h1 class="title">ESP8266 configuration</h1>
     <h2 class="subtitle">Set up your device.</h2>
     <progress-bar :current-step="currentStep" />
     <div class="content">
       <connection-step @done="goToNextStep" @loading="setLoading" @loaded="stopLoading" v-if="currentStep === 1" />
       <info-step @deviceInformation="receiveDeviceInformation" @done="goToNextStep" @loading="setLoading" @loaded="stopLoading" v-if="currentStep === 2" />
       <wifi-step @wifiConfig="receiveWifiConfig" @done="goToNextStep" @loading="setLoading" @loaded="stopLoading" v-if="currentStep === 3" />
-      <mqtt-step @mqttConfig="receiveMqttConfig" @done="goToNextStep" v-if="currentStep === 4" />
-      <settings-step :device-information="deviceInformation" @settingsConfig="receiveSettingsConfig" @done="goToNextStep" v-if="currentStep === 5" />
-      <sending-step :configuration="config" @loading="setLoading" @loaded="stopLoading" v-if="currentStep === 6" />
+      <settings-step :device-information="deviceInformation" @settingsConfig="receiveSettingsConfig" @done="goToNextStep" v-if="currentStep === 4" />
+      <sending-step :configuration="config" @loading="setLoading" @loaded="stopLoading" v-if="currentStep === 5" />
 
       <div v-if="loading" class="notification">
         <span class="button is-loading">Loading</span> {{ loadingText }}
@@ -24,7 +23,6 @@ import ProgressBar from './ProgressBar.vue'
 import ConnectionStep from './steps/Connection.vue'
 import InfoStep from './steps/Info.vue'
 import WifiStep from './steps/Wifi.vue'
-import MqttStep from './steps/Mqtt.vue'
 import SettingsStep from './steps/Settings.vue'
 import SendingStep from './steps/Sending.vue'
 
@@ -60,8 +58,7 @@ export default {
     },
     receiveSettingsConfig: function (config) {
       this.config.name = config.name
-      this.config.ota = { enabled: config.ota }
-      if (config['device_id']) this.config['device_id'] = config['device_id']
+      this.config.ota = { enabled: true }
       if (Object.keys(config.settings).length !== 0) this.config.settings = config.settings
     }
   },
@@ -70,7 +67,7 @@ export default {
     ConnectionStep,
     InfoStep,
     WifiStep,
-    MqttStep,
+    // MqttStep,
     SettingsStep,
     SendingStep
   }

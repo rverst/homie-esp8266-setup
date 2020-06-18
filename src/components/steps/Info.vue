@@ -7,7 +7,6 @@
 
       <ul>
         <li><span class="icon is-small"><i class="fa fa-hashtag"></i></span> <b>Hardware device ID:</b> <span class="tag is-dark">{{ apiResponse.hardware_device_id }}</span></li>
-        <li><span class="icon is-small"><i class="fa fa-tag"></i></span> <b>Homie for ESP8266 version:</b> <span class="tag is-dark">{{ apiResponse.homie_esp8266_version }}</span></li>
         <li>
           <span class="icon is-small">
             <i class="fa fa-font"></i>
